@@ -192,6 +192,51 @@
 		.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 		.chip { font-size: .78rem; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); background: rgba(255,255,255,.02); }
 
+		/* projects */
+		.filters { display: flex; flex-wrap: wrap; gap: 10px; margin: -24px 0 36px; }
+		.filters button {
+			font: inherit; font-size: .9rem; font-weight: 500; color: var(--muted); cursor: pointer;
+			padding: 8px 18px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.02);
+			transition: color .2s, border-color .2s, background .2s;
+		}
+		.filters button:hover { color: var(--text); border-color: var(--muted); }
+		.filters button.on { color: #17130a; background: var(--accent); border-color: var(--accent); }
+		.projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+		.project {
+			border-radius: var(--radius); background: var(--card); border: 1px solid var(--line); overflow: hidden;
+			display: flex; flex-direction: column; transition: transform .3s, border-color .3s, opacity .3s;
+		}
+		.project:hover { transform: translateY(-5px); border-color: #3a4057; }
+		.project.hide { display: none; }
+		.cover {
+			position: relative; aspect-ratio: 16 / 10; display: grid; place-items: center; overflow: hidden;
+			background: linear-gradient(135deg, var(--c1), var(--c2));
+		}
+		.cover::before {
+			content: ""; position: absolute; inset: 0;
+			background-image: linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px);
+			background-size: 28px 28px; mask-image: linear-gradient(to bottom, #000, transparent);
+		}
+		.cover svg { width: 64px; height: 64px; color: rgba(255,255,255,.92); position: relative; filter: drop-shadow(0 8px 18px rgba(0,0,0,.35)); transition: transform .4s; }
+		.project:hover .cover svg { transform: scale(1.12) rotate(-4deg); }
+		.cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+		.project:hover .cover img { transform: scale(1.05); }
+		.cover .count {
+			position: absolute; right: 14px; top: 14px; font-family: "Space Grotesk"; font-weight: 700; font-size: .8rem;
+			padding: 4px 10px; border-radius: 999px; background: rgba(0,0,0,.35); backdrop-filter: blur(6px); color: #fff;
+		}
+		.cover .platform { position: absolute; left: 14px; bottom: 12px; font-size: .78rem; font-weight: 600; color: rgba(255,255,255,.85); letter-spacing: .06em; text-transform: uppercase; }
+		.project-body { padding: 22px 24px 24px; display: flex; flex-direction: column; flex: 1; }
+		.project h3 { font-size: 1.15rem; margin-bottom: 4px; }
+		.project .client { color: var(--accent); font-size: .85rem; font-weight: 500; margin-bottom: 10px; }
+		.project p { color: var(--muted); font-size: .94rem; flex: 1; }
+		.project .chips { margin-top: 16px; }
+		.c-game { --c1: #f5b72b; --c2: #e0662a; }
+		.c-vr { --c1: #7c5cff; --c2: #3b2a9e; }
+		.c-ar { --c1: #22c1c3; --c2: #1d6fa3; }
+		.c-motion { --c1: #3ddc84; --c2: #13795b; }
+		.c-tool { --c1: #ff5c8a; --c2: #8a2be2; }
+
 		/* skills */
 		.skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 		.skill-group { padding: 28px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line); }
@@ -257,7 +302,7 @@
 			.cta, .platforms { justify-content: center; }
 			.hero-art { order: -1; }
 			.hero-art img { width: 220px; }
-			.cards, .skills-grid, .edu-grid { grid-template-columns: 1fr 1fr; }
+			.cards, .skills-grid, .edu-grid, .projects { grid-template-columns: 1fr 1fr; }
 			.stats .grid { grid-template-columns: 1fr 1fr; }
 			.stat:nth-child(2) { border-right: 0; }
 			.stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
@@ -272,11 +317,11 @@
 				background: rgba(11,13,20,.97); border-bottom: 1px solid var(--line);
 				max-height: 0; overflow: hidden; transition: max-height .35s;
 			}
-			.nav ul.open { max-height: 420px; }
+			.nav ul.open { max-height: 520px; }
 			.nav ul li { width: 100%; text-align: center; }
 			.nav ul a { display: block; padding: 14px; }
 			.nav ul .btn { display: inline-flex; margin: 8px 0 18px; }
-			.cards, .skills-grid, .edu-grid, .info { grid-template-columns: 1fr; }
+			.cards, .skills-grid, .edu-grid, .info, .projects { grid-template-columns: 1fr; }
 			.timeline::before { left: 7px; }
 			.job { grid-template-columns: 1fr; }
 			.job-avatar { display: none; }
@@ -305,6 +350,7 @@
 				<li><a href="#about">About</a></li>
 				<li><a href="#services">What I Build</a></li>
 				<li><a href="#experience">Experience</a></li>
+				<li><a href="#projects">Projects</a></li>
 				<li><a href="#skills">Skills</a></li>
 				<li><a href="#education">Education</a></li>
 				<li><a href="#contact" class="btn btn-primary">Hire Me</a></li>
@@ -499,6 +545,106 @@
 			</div>
 		</section>
 
+		<!-- projects -->
+		<section id="projects">
+			<div class="wrap">
+				<span class="eyebrow reveal">Projects</span>
+				<h2 class="section-title reveal">Games &amp; experiences I've built</h2>
+				<p class="section-sub reveal">A selection of games, simulations and tools I've shipped for clients and studios.</p>
+				<div class="filters reveal" role="tablist">
+					<button class="on" data-filter="all">All</button>
+					<button data-filter="game">Games</button>
+					<button data-filter="vr">VR</button>
+					<button data-filter="ar">AR</button>
+					<button data-filter="motion">Motion</button>
+					<button data-filter="tool">Tools</button>
+				</div>
+				<div class="projects">
+					<article class="project reveal" data-cat="game">
+						<div class="cover c-game"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="4"/><path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"/></svg><span class="count">9 games</span><span class="platform">WebGL · Mobile</span></div>
+						<div class="project-body">
+							<h3>ChallengeX Mini-Games</h3>
+							<div class="client">ChallengeX · Likecard app</div>
+							<p>A collection of 9 mini-games running as WebGL web views inside the Likecard mobile app, with token-based player data synced through backend APIs.</p>
+							<div class="chips"><span class="chip">Unity</span><span class="chip">WebGL</span><span class="chip">REST APIs</span></div>
+						</div>
+					</article>
+					<article class="project reveal" data-cat="game">
+						<div class="cover c-game"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg><span class="count">6 games</span><span class="platform">Mobile</span></div>
+						<div class="project-body">
+							<h3>Ministry Mobile Games</h3>
+							<div class="client">Indecks · Ministry of Planning</div>
+							<p>A series of 6 mobile games built under the supervision of Egypt’s Ministry of Planning and Economic Development.</p>
+							<div class="chips"><span class="chip">Unity</span><span class="chip">Android / iOS</span><span class="chip">Game Design</span></div>
+						</div>
+					</article>
+					<article class="project reveal" data-cat="vr">
+						<div class="cover c-vr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-3 2-5 5-5 8 0 4 3 7 7 7z"/><path d="M12 22c-1.7 0-3-1.3-3-3 0-2 3-4 3-4s3 2 3 4c0 1.7-1.3 3-3 3z"/></svg><span class="platform">Meta Quest 3</span></div>
+						<div class="project-body">
+							<h3>VR Fire-Fighting Simulation</h3>
+							<div class="client">Indecks</div>
+							<p>An immersive fire-fighting training simulation built for Meta Quest 3.</p>
+							<div class="chips"><span class="chip">Unity</span><span class="chip">VR</span><span class="chip">Quest 3</span></div>
+						</div>
+					</article>
+					<article class="project reveal" data-cat="game">
+						<div class="cover c-game"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span class="platform">Desktop</span></div>
+						<div class="project-body">
+							<h3>Beyti Employee Day Game</h3>
+							<div class="client">Indecks · Beyti</div>
+							<p>A desktop game created for Beyti to engage employees during their company Employee Day event.</p>
+							<div class="chips"><span class="chip">Unity</span><span class="chip">Desktop</span><span class="chip">Event</span></div>
+						</div>
+					</article>
+					<article class="project reveal" data-cat="ar">
+						<div class="cover c-ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M12 7l5 3v4l-5 3-5-3v-4z"/></svg><span class="platform">Mobile AR</span></div>
+						<div class="project-body">
+							<h3>AR Mobile Applications</h3>
+							<div class="client">O-Projects</div>
+							<p>Marker-based augmented reality apps built with Vuforia, plus WebAR prototypes with 8th Wall and OpenCV-powered apps.</p>
+							<div class="chips"><span class="chip">Vuforia</span><span class="chip">8th Wall</span><span class="chip">OpenCV</span></div>
+						</div>
+					</article>
+					<article class="project reveal" data-cat="motion">
+						<div class="cover c-motion"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="4" r="2"/><path d="M6 21l3-6 3 2v4M8 11l3-4 4 3 3 1M4 13l3-2"/></svg><span class="platform">Xbox Kinect</span></div>
+						<div class="project-body">
+							<h3>Kinect Endless Runner</h3>
+							<div class="client">O-Projects</div>
+							<p>An endless runner controlled with full-body movement, tracked by an Xbox Kinect.</p>
+							<div class="chips"><span class="chip">Unity</span><span class="chip">Kinect</span><span class="chip">Motion Tracking</span></div>
+						</div>
+					</article>
+					<article class="project reveal" data-cat="motion">
+						<div class="cover c-motion"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="5" r="2"/><circle cx="17" cy="5" r="2"/><path d="M8 7v5l-3 8M8 12l3 8M17 7v5l3 8M17 12l-3 8M5 10h6M14 10h6"/></svg><span class="platform">Xbox Kinect</span></div>
+						<div class="project-body">
+							<h3>Kinect Chase-Tag Game</h3>
+							<div class="client">Upwork client</div>
+							<p>A chase-tag game controlled by body movement using Xbox Kinect.</p>
+							<div class="chips"><span class="chip">Unity</span><span class="chip">Kinect</span><span class="chip">Freelance</span></div>
+						</div>
+					</article>
+					<article class="project reveal" data-cat="game">
+						<div class="cover c-game"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c3-5 9-7 14-4l5-3v14l-5-3c-5 3-11 1-14-4z"/><path d="M7 11h.01"/></svg><span class="platform">Desktop</span></div>
+						<div class="project-body">
+							<h3>Aquarium Game</h3>
+							<div class="client">Freelancer client</div>
+							<p>A 3D aquarium sandbox with real-time terrain shaping, particle effects for water states, and adding or removing 3D models at runtime.</p>
+							<div class="chips"><span class="chip">Unity</span><span class="chip">Terrain</span><span class="chip">Particles</span></div>
+						</div>
+					</article>
+					<article class="project reveal" data-cat="tool">
+						<div class="cover c-tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 22V12M21 7l-9 5-9-5"/></svg><span class="platform">Unity Tool</span></div>
+						<div class="project-body">
+							<h3>Intelligent 3D Map Builder</h3>
+							<div class="client">Graduation project</div>
+							<p>A procedural tool that generates unlimited random 3D maps from size, layer and path settings, with backtracking pathfinding and camera navigation.</p>
+							<div class="chips"><span class="chip">Procedural</span><span class="chip">Algorithms</span><span class="chip">C#</span></div>
+						</div>
+					</article>
+				</div>
+			</div>
+		</section>
+
 		<!-- skills -->
 		<section id="skills">
 			<div class="wrap">
@@ -689,6 +835,18 @@
 					var b = card.getBoundingClientRect();
 					card.style.setProperty('--mx', (e.clientX - b.left) + 'px');
 					card.style.setProperty('--my', (e.clientY - b.top) + 'px');
+				});
+			});
+
+			// project filters
+			var filterBtns = document.querySelectorAll('.filters button');
+			filterBtns.forEach(function (btn) {
+				btn.addEventListener('click', function () {
+					var f = btn.dataset.filter;
+					filterBtns.forEach(function (b) { b.classList.toggle('on', b === btn); });
+					document.querySelectorAll('.project').forEach(function (p) {
+						p.classList.toggle('hide', f !== 'all' && p.dataset.cat !== f);
+					});
 				});
 			});
 
